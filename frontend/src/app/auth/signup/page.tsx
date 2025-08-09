@@ -19,6 +19,7 @@ interface UserType {
   email: string;
   role: 'user' | 'admin' | 'superadmin' | 'workers' | 'moderator';
   subcity?: string;
+   avatar: '/images/default-avatar.png', // ✅ added to match User interface
 }
 
 type FormData = {
@@ -155,6 +156,7 @@ export default function SignUp() {
       email: formData.email,
       name: formData.name || 'New User',
       role: 'user',
+      avatar: '/images/default-avatar.png'
     };
 
     saveUsers([...users, newUser]);

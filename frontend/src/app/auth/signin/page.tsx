@@ -21,6 +21,7 @@ export default function SignIn() {
     email: 'Deekibraa@gmail.com',
     role: 'superadmin' as const,
     subcity: 'DemoCity',
+     avatar: '/images/default-avatar.png', // ✅ added to match User interface
   };
   const demoPassword = '123456';
 

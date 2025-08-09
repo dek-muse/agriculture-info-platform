@@ -14,11 +14,14 @@ import { useRouter, usePathname } from 'next/navigation';
 type UserRole = 'user' | 'admin' | 'superadmin' | 'workers' | 'moderator';
 
 interface User {
+ 
   _id: string;
   name: string;
   email: string;
   subcity?: string;
   role: UserRole;
+  avatar: string;
+
 }
 
 interface AuthContextType {
@@ -28,6 +31,7 @@ interface AuthContextType {
   login: (user: User, token: string) => void;
   logout: () => void;
   hasRole: (roles: UserRole | UserRole[]) => boolean;
+  loading: boolean; // ✅ added
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -132,6 +136,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       login,
       logout,
       hasRole,
+      loading, // ✅ added,
     }),
     [user, token]
   );
