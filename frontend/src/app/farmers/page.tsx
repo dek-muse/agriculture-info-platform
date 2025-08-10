@@ -31,6 +31,10 @@ interface Farmer {
   farmSize: string | number;
   createdAt?: string;
   avatarUrl?: string;
+  irrigationType: string;
+  workersCount: string;
+  fertilizerType: string;
+  establishedYear: string;
 }
 
 /* -------------------------
@@ -142,7 +146,7 @@ export default function FarmersDashboardGrid() {
   const [darkMode, setDarkMode] = useState(() =>
     typeof window !== "undefined"
       ? window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
+      window.matchMedia("(prefers-color-scheme: dark)").matches
       : false
   );
 
@@ -238,7 +242,7 @@ export default function FarmersDashboardGrid() {
   return (
     <div
       className="min-h-screen relative bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-50 transition-colors duration-300"
-      >
+    >
       {/* Background image (glass effect) */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -324,24 +328,23 @@ export default function FarmersDashboardGrid() {
               className="px-3 py-2 rounded-full bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 flex items-center gap-2 transition"
               title="Export CSV"
             >
-              <Download size={16} /> 
+              <Download size={16} />
             </button>
 
             <button
               onClick={refresh}
-              className={`px-3 py-2 rounded-full bg-white/90 dark:bg-gray-700/90 border border-gray-300 dark:border-gray-600 ${
-                refreshing ? "opacity-70" : ""
-              } transition`}
+              className={`px-3 py-2 rounded-full bg-white/90 dark:bg-gray-700/90 border border-gray-300 dark:border-gray-600 ${refreshing ? "opacity-70" : ""
+                } transition`}
               title="Refresh"
             >
               <RefreshCw size={16} />
             </button>
-           <Link
-              href="/FarmerRegistration"
+            <Link
+              href="/farmers/Registration"
               className="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition whitespace-nowrap"
               title="Register New Farmer"
             >
-              <PlusCircle size={24}  />
+              <PlusCircle size={24} />
 
             </Link>
           </div>
@@ -352,31 +355,28 @@ export default function FarmersDashboardGrid() {
           <div className="text-sm ">Sort:</div>
           <button
             onClick={() => toggleSort("createdAt")}
-            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${
-              sortBy === "createdAt"
-                ? "bg-green-600 text-white dark:bg-green-500"
-                : "bg-transparent text-gray-900 dark:text-gray-50"
-            } transition`}
+            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${sortBy === "createdAt"
+              ? "bg-green-600 text-white dark:bg-green-500"
+              : "bg-transparent text-gray-900 dark:text-gray-50"
+              } transition`}
           >
             Newest {sortBy === "createdAt" ? (sortDir === "asc" ? "↑" : "↓") : ""}
           </button>
           <button
             onClick={() => toggleSort("name")}
-            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${
-              sortBy === "name"
-                ? "bg-green-600 text-white dark:bg-green-500"
-                : "bg-transparent text-gray-900 dark:text-gray-50"
-            } transition`}
+            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${sortBy === "name"
+              ? "bg-green-600 text-white dark:bg-green-500"
+              : "bg-transparent text-gray-900 dark:text-gray-50"
+              } transition`}
           >
             Name {sortBy === "name" ? (sortDir === "asc" ? "↑" : "↓") : ""}
           </button>
           <button
             onClick={() => toggleSort("farmSize")}
-            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${
-              sortBy === "farmSize"
-                ? "bg-green-600 text-white dark:bg-green-500"
-                : "bg-transparent text-gray-900 dark:text-gray-50"
-            } transition`}
+            className={`px-3 py-1 rounded-md border border-gray-300 dark:border-gray-600 ${sortBy === "farmSize"
+              ? "bg-green-600 text-white dark:bg-green-500"
+              : "bg-transparent text-gray-900 dark:text-gray-50"
+              } transition`}
           >
             Size {sortBy === "farmSize" ? (sortDir === "asc" ? "↑" : "↓") : ""}
           </button>
@@ -387,7 +387,7 @@ export default function FarmersDashboardGrid() {
             <strong>{Math.min(page * PAGE_SIZE, total)}</strong> of{" "}
             <strong>{total}</strong>
           </div>
-          
+
         </div>
 
         {/* Error */}
@@ -402,52 +402,52 @@ export default function FarmersDashboardGrid() {
         >
           {loading
             ? // Loading skeletons
-              Array.from({ length: PAGE_SIZE }).map((_, i) => (
-                <motion.div
-                  key={i}
-                  variants={cardVariant}
-                  className="backdrop-blur-md border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow animate-pulse h-40"
-                />
-              ))
-            : pageItems.length === 0
-            ? (
-              <div className="col-span-full p-8 text-center backdrop-blur-md rounded-2xl">
-                No farmers found.
-              </div>
-            )
-            : pageItems.map((f) => (
-              <motion.article
-                key={f.id ?? f.email}
+            Array.from({ length: PAGE_SIZE }).map((_, i) => (
+              <motion.div
+                key={i}
                 variants={cardVariant}
-                className="bg-white/50 dark:bg-gray-800/60 backdrop-blur-md border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer"
-                onClick={() => setSelected(f)}
-              >
-                <div className="flex items-center gap-4">
-                  <Avatar farmer={f} />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <h3 className="text-lg font-semibold">{f.name}</h3>
-                      <div className="text-xs">
-                        {f.createdAt
-                          ? new Date(f.createdAt).toLocaleDateString()
-                          : "-"}
+                className="backdrop-blur-md border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow animate-pulse h-40"
+              />
+            ))
+            : pageItems.length === 0
+              ? (
+                <div className="col-span-full p-8 text-center backdrop-blur-md rounded-2xl">
+                  No farmers found.
+                </div>
+              )
+              : pageItems.map((f) => (
+                <motion.article
+                  key={f.id ?? f.email}
+                  variants={cardVariant}
+                  className="bg-white/50 dark:bg-gray-800/60 backdrop-blur-md border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer"
+                  onClick={() => setSelected(f)}
+                >
+                  <div className="flex items-center gap-4">
+                    <Avatar farmer={f} />
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <h3 className="text-lg font-semibold">{f.name}</h3>
+                        <div className="text-xs">
+                          {f.createdAt
+                            ? new Date(f.createdAt).toLocaleDateString()
+                            : "-"}
+                        </div>
+                      </div>
+                      <div className="text-sm">
+                        {f.farmName} • <span className="font-medium">{f.farmType}</span>
+                      </div>
+                      <div className="mt-2 text-sm">
+                        {f.subcity} • {f.phone}
                       </div>
                     </div>
-                    <div className="text-sm">
-                      {f.farmName} • <span className="font-medium">{f.farmType}</span>
-                    </div>
-                    <div className="mt-2 text-sm">
-                      {f.subcity} • {f.phone}
-                    </div>
                   </div>
-                </div>
 
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="text-sm font-semibold">{f.farmSize} ha</div>
-                  <div className="text-sm">Email: {f.email}</div>
-                </div>
-              </motion.article>
-            ))}
+                  <div className="mt-4 flex items-center justify-between">
+                    <div className="text-sm font-semibold">{f.farmSize} ha</div>
+                    <div className="text-sm">Email: {f.email}</div>
+                  </div>
+                </motion.article>
+              ))}
         </motion.div>
 
         {/* Pagination */}
@@ -551,6 +551,22 @@ export default function FarmersDashboardGrid() {
                   <p>
                     <strong>Farm Size:</strong> {selected.farmSize} hectares
                   </p>
+                  <p>
+                    <strong>Farm Size:</strong> {selected.irrigationType} irrigation
+                    {/* : string; */}
+                  </p>
+                  <p>
+                    <strong>Farm Size:</strong> {selected.fertilizerType} fertilizer
+                    {/* : string; */}
+                  </p>
+                  <p>
+                    <strong>Farm Size:</strong> {selected.establishedYear} established year
+                    {/* : string; */}
+                  </p>
+                  {/* irrigationType: string; */}
+                  {/* workersCount: string; */}
+                  {/* fertilizerType: string; */}
+                  {/* establishedYear: string; */}
                   <p>
                     <strong>Registered:</strong>{" "}
                     {selected.createdAt

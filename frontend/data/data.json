@@ -76,5 +76,31 @@
     "farmName": "dek ibrahim",
     "farmType": "Vegetables",
     "farmSize": "3000"
+  },
+  {
+    "name": "Dek Ibrahim muse",
+    "email": "Deekibraa@gmail.com",
+    "subcity": "jijiga",
+    "phone": "0943164433",
+    "farmName": "Netcore Farm",
+    "farmType": "Vegetables",
+    "farmSize": "1200",
+    "irrigationType": "Drip",
+    "workersCount": "20",
+    "fertilizerType": "Organic",
+    "establishedYear": "2017"
+  },
+  {
+    "name": "LIPAAN ABDI SALAD",
+    "email": "Liban@gmail.com",
+    "subcity": "jijiga",
+    "phone": "0943164433",
+    "farmName": "dek ibrahim",
+    "farmType": "Vegetables",
+    "farmSize": "1200",
+    "irrigationType": "Rainfed",
+    "workersCount": "12",
+    "fertilizerType": "Mixed",
+    "establishedYear": "2014"
   }
 ]

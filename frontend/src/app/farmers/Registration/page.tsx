@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Mail, MapPin, Phone, Layers, Ruler, CheckCircle } from 'lucide-react';
+import { 
+  User, Mail, MapPin, Phone, Layers, Ruler, CheckCircle, Droplet, Users, Leaf, Calendar 
+} from 'lucide-react';
 
 interface Farmer {
   name: string;
@@ -12,9 +14,13 @@ interface Farmer {
   farmName: string;
   farmType: string;
   farmSize: string;
+  irrigationType: string;
+  workersCount: string;
+  fertilizerType: string;
+  establishedYear: string;
 }
 
-const steps = ['Personal Info', 'Farm Details', 'Review & Submit'];
+const steps = ['Personal Info', 'Farm Details', 'Additional Info', 'Review & Submit'];
 
 export default function FarmersForm() {
   const [step, setStep] = useState(0);
@@ -30,6 +36,10 @@ export default function FarmersForm() {
     farmName: '',
     farmType: '',
     farmSize: '',
+    irrigationType: '',
+    workersCount: '',
+    fertilizerType: '',
+    establishedYear: '',
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -62,6 +72,24 @@ export default function FarmersForm() {
         return false;
       }
     }
+    if (step === 2) {
+      if (!form.irrigationType.trim()) {
+        setError('Please select an irrigation type.');
+        return false;
+      }
+      if (!form.workersCount.trim() || Number(form.workersCount) < 0) {
+        setError('Please enter number of workers.');
+        return false;
+      }
+      if (!form.fertilizerType.trim()) {
+        setError('Please select fertilizer type.');
+        return false;
+      }
+      if (!form.establishedYear.trim() || Number(form.establishedYear) <= 0) {
+        setError('Please enter a valid year established.');
+        return false;
+      }
+    }
     setError('');
     return true;
   }
@@ -80,7 +108,6 @@ export default function FarmersForm() {
 
       setSuccess(true);
 
-      // Clear form and reset step
       setForm({
         name: '',
         email: '',
@@ -89,10 +116,13 @@ export default function FarmersForm() {
         farmName: '',
         farmType: '',
         farmSize: '',
+        irrigationType: '',
+        workersCount: '',
+        fertilizerType: '',
+        establishedYear: '',
       });
       setStep(0);
 
-      // Hide success after 3 seconds
       setTimeout(() => {
         setSuccess(false);
       }, 3000);
@@ -110,7 +140,6 @@ export default function FarmersForm() {
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative px-4"
       style={{ backgroundImage: `url('/assets/agr.jpg')` }}
     >
-      {/* Blurred overlay */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
       <motion.div
@@ -159,15 +188,15 @@ export default function FarmersForm() {
               )}
 
               {step === 1 && (
-                <div className="space-y-5">
+                <div className="space-y-5 ">
                   <Input icon={<Layers />} name="farmName" value={form.farmName} onChange={handleChange} placeholder="Farm Name *" />
-                  <Select icon={<Layers />} name="farmType" value={form.farmType} onChange={handleChange}>
-                    <option value="">-- Farm Type --</option>
-                    <option value="Grains">Grains</option>
-                    <option value="Vegetables">Vegetables</option>
-                    <option value="Fruits">Fruits</option>
-                    <option value="Livestock">Livestock</option>
-                    <option value="Mixed">Mixed</option>
+                  <Select  icon={<Layers />} name="farmType" value={form.farmType} onChange={handleChange}>
+                    <option className='text-black' value="">-- Farm Type --</option>
+                    <option className='text-black' value="Grains">Grains</option>
+                    <option className='text-black' value="Vegetables">Vegetables</option>
+                    <option className='text-black' value="Fruits">Fruits</option>
+                    <option className='text-black' value="Livestock">Livestock</option>
+                    <option className='text-black' value="Mixed">Mixed</option>
                   </Select>
                   <Input
                     icon={<Ruler />}
@@ -182,7 +211,27 @@ export default function FarmersForm() {
               )}
 
               {step === 2 && (
-                <div className="space-y-4 text-white">
+                <div className="space-y-5">
+                  <Select icon={<Droplet />} name="irrigationType" value={form.irrigationType} onChange={handleChange}>
+                    <option className='text-black' value="">-- Irrigation Type --</option>
+                    <option className='text-black' value="Rainfed">Rainfed</option>
+                    <option className='text-black' value="Well">Well</option>
+                    <option className='text-black' value="River">River</option>
+                    <option className='text-black' value="Drip">Drip Irrigation</option>
+                  </Select>
+                  <Input icon={<Users />} name="workersCount" type="number" value={form.workersCount} onChange={handleChange} placeholder="Number of Workers" />
+                  <Select icon={<Leaf />} name="fertilizerType" value={form.fertilizerType} onChange={handleChange}>
+                    <option className='text-black' value="">-- Fertilizer Type --</option>
+                    <option className='text-black' value="Organic">Organic</option>
+                    <option className='text-black' value="Chemical">Chemical</option>
+                    <option className='text-black' value="Mixed">Mixed</option>
+                  </Select>
+                  <Input icon={<Calendar />} name="establishedYear" type="number" value={form.establishedYear} onChange={handleChange} placeholder="Year Established" />
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="space-y-4  ">
                   <h3 className="text-xl font-semibold mb-4">Review your details</h3>
                   <ul className="text-sm space-y-2">
                     {Object.entries(form).map(([key, value]) => (
@@ -213,7 +262,7 @@ export default function FarmersForm() {
                     onClick={() => {
                       if (validateStep()) setStep(s => s + 1);
                     }}
-                    className="ml-auto px-5 py-2 rounded-lg bg-green-500 hover:bg-green-600 transition text-white font-semibold"
+                    className="ml-auto px-5 py-2 rounded-lg bg-green-500 hover:bg-green-600 transition   font-semibold"
                   >
                     Next
                   </button>
@@ -245,7 +294,6 @@ export default function FarmersForm() {
           )}
         </AnimatePresence>
 
-        {/* Demo credentials reminder (example) */}
         <p className="mt-8 text-sm text-white/60 text-center select-none">
           Demo: Fill the form and submit to register a farmer.
         </p>

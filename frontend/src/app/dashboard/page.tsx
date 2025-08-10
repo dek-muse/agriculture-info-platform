@@ -323,7 +323,7 @@ export default function FarmersDashboard() {
           <div className="text-sm text-white/90 px-3">{user?.name}</div>
         </div>
       </motion.header>
-      
+
       <main className="max-w-7xl mx-auto px-6 pt-22">
         {/* Page title */}
         <motion.h1
