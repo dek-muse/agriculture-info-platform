@@ -74,6 +74,7 @@ export default function Header() {
               )}
 
               {/* User Avatar */}
+             <Link href="/auth/profile">
               {user?.avatar ? (
                 <img src={user.avatar} alt="User avatar" className="w-8 h-8 rounded-full border border-gray-300" />
               ) : (
@@ -81,6 +82,7 @@ export default function Header() {
                   {user.name?.[0] || "U"}
                 </span>
               )}
+             </Link>
 
               {/* Sign Out button */}
               <button

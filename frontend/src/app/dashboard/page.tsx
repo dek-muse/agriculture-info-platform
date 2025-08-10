@@ -245,19 +245,20 @@ export default function FarmersDashboard() {
 
   return (
     <div className="min-h-screen  pb-20">
+
       {/* Sticky Glass Navbar */}
       <motion.header
         initial={{ y: -60, opacity: 0 }}
         animate={showNav ? { y: 0, opacity: 1 } : { y: -60, opacity: 0 }}
         transition={{ duration: 0.35 }}
-        className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl rounded-2xl border border-white/30 bg-white/10 backdrop-blur-md px-6 py-3 shadow-lg flex items-center gap-4 mt-[30px]"
+        className="top-4   translate-x-[160px] z-50 w-[95%] max-w-7xl rounded-2xl border border-white/30  bg-gray-600 backdrop-blur-md px-6 py-3 shadow-lg flex items-center gap-4 mt-[30px]"
       >
         <div className="flex items-center gap-3">
           <div className="rounded-full w-10 h-10 bg-green-500 grid place-items-center text-white font-bold shadow">
-            MF
+            NC
           </div>
           <div>
-            <div className="text-sm text-white/90 font-semibold">Modern Farmers</div>
+            <div className="text-sm text-white/90 font-semibold">agru netcore</div>
             <div className="text-xs text-white/70">Admin Dashboard</div>
           </div>
         </div>
@@ -322,8 +323,8 @@ export default function FarmersDashboard() {
           <div className="text-sm text-white/90 px-3">{user?.name}</div>
         </div>
       </motion.header>
-
-      <main className="max-w-7xl mx-auto px-6 pt-36">
+      
+      <main className="max-w-7xl mx-auto px-6 pt-22">
         {/* Page title */}
         <motion.h1
           initial={{ opacity: 0, y: -16 }}
@@ -566,7 +567,7 @@ export default function FarmersDashboard() {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           title="Top"
-          className="w-12 h-12 rounded-full bg-white/90 shadow grid place-items-center hover:scale-105 transition"
+          className="w-12 h-12 rounded-full  shadow grid place-items-center hover:scale-105 transition"
         >
           <ArrowUp size={18} />
         </button>
@@ -574,7 +575,7 @@ export default function FarmersDashboard() {
         <button
           onClick={onRefresh}
           title="Refresh"
-          className={`w-12 h-12 rounded-full bg-white/90 shadow grid place-items-center hover:scale-105 transition ${refreshing ? "opacity-70" : ""}`}
+          className={`w-12 h-12 rounded-full  shadow grid place-items-center hover:scale-105 transition ${refreshing ? "opacity-70" : ""}`}
         >
           <RefreshCw size={18} />
         </button>

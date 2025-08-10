@@ -13,6 +13,7 @@ import {
   RefreshCw,
   Moon,
   Sun,
+  PlusCircle,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -323,7 +324,7 @@ export default function FarmersDashboardGrid() {
               className="px-3 py-2 rounded-full bg-green-600 text-white hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 flex items-center gap-2 transition"
               title="Export CSV"
             >
-              <Download size={16} /> Export
+              <Download size={16} /> 
             </button>
 
             <button
@@ -335,14 +336,15 @@ export default function FarmersDashboardGrid() {
             >
               <RefreshCw size={16} />
             </button>
-          </div>
            <Link
               href="/FarmerRegistration"
               className="px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition whitespace-nowrap"
               title="Register New Farmer"
             >
-              Register New Farmer
+              <PlusCircle size={24}  />
+
             </Link>
+          </div>
         </div>
 
         {/* Sort controls */}
